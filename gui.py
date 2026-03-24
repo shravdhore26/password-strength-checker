@@ -1,5 +1,5 @@
 import tkinter as tk
-from utils import check_password_strength, suggest_password
+from utils import check_password_strength, suggest_password, save_to_file
 
 def check():
     password = entry.get()
@@ -7,11 +7,16 @@ def check():
 
     result_label.config(text=f"Strength: {strength}")
 
+    # Save to file
+    save_to_file(password, strength)
+
     suggestions_text.delete("1.0", tk.END)
+
     if strength == "Weak":
         suggestions = suggest_password(password)
         for s in suggestions:
             suggestions_text.insert(tk.END, f"- {s}\n")
+
 
 root = tk.Tk()
 root.title("Password Strength Checker")
